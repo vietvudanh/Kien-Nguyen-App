@@ -8,5 +8,18 @@
     <string name="main_list">List</string>
     <string name="title_activity_add_edit">AddEditActivity</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="add_label_name">Name</string>
+    <string name="add_hint_name">Event name</string>
+    <string name="add_hint_date">DD/MM/YYYY</string>
+    <string name="add_hint_time">hh/mm</string>
+    <string name="add_hint_description">Description</string>
+    <string name="add_hint_place">Place</string>
+    <string name="add_hint_amount">amount of money</string>
+    <string name="add_label_date">Date</string>
+    <string name="add_label_time">Time</string>
+    <string name="add_label_description">Description</string>
+    <string name="add_label_place">Place</string>
+    <string name="add_label_amount">Amount</string>
+    <string name="add_button_save">Save</string>
 
 </resources>

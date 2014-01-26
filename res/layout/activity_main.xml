@@ -10,20 +10,22 @@
 
     <Button
         android:id="@+id/main_add"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="122dp"
+        android:onClick="mainAddEdit"
         android:text="@string/main_add" />
 
     <Button
         android:id="@+id/main_list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/main_add"
         android:layout_below="@+id/main_add"
         android:layout_marginTop="41dp"
+        android:onClick="mainList"
         android:text="@string/main_list" />
 
 </RelativeLayout>
