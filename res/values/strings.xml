@@ -6,5 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="main_add">Add</string>
     <string name="main_list">List</string>
+    <string name="title_activity_add_edit">AddEditActivity</string>
+    <string name="title_activity_list">ListActivity</string>
 
 </resources>
