@@ -20,7 +20,6 @@ import static com.event.Constants.DB_COL_NAME;
 import static com.event.Constants.DB_COL_PLACE;
 import static com.event.Constants.DB_COL_TIME;
 
-
 public class DatabaseHandler extends SQLiteOpenHelper{
 
 	public DatabaseHandler(Context context) {
@@ -32,11 +31,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		Log.d("ON CREATE", "CREATE");
 		String query = "CREATE TABLE " + DB_TABLE_NAME + "("
 				+ _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ DB_COL_NAME 			+ "TEXT" 		+ ", "
-				+ DB_COL_TIME 			+ "DATETIME" 	+ ", " 
-				+ DB_COL_DESCRIPTION 	+ "TEXT"		+ ", "
-				+ DB_COL_PLACE 			+ "TEXT"		+ ", "
-				+ DB_COL_AMOUNT 		+ "DOUBLE"
+				+ DB_COL_NAME 			+ " TEXT " 		+ ", "
+				+ DB_COL_TIME 			+ " INT " 	+ ", " 
+				+ DB_COL_DESCRIPTION 	+ " TEXT "		+ ", "
+				+ DB_COL_PLACE 			+ " TEXT "		+ ", "
+				+ DB_COL_AMOUNT 		+ " DOUBLE "
 				+ ");";
 		db.execSQL(query);		
 	}
@@ -56,6 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	 * @return: 0/1
 	 */
 	public void insert(Event event){
+		Log.d("Insert:","insert called");
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
@@ -64,10 +64,26 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	    values.put(DB_COL_DESCRIPTION, event.getDescription());
 	    values.put(DB_COL_PLACE, event.getPlace());
 	    values.put(DB_COL_AMOUNT, event.getAmount());
+	    Log.d("Values:", values.toString());
 	 
 	    // Inserting Row
 	    db.insert(DB_TABLE_NAME, null, values);
 	    db.close(); // Closing database connection
+//	    String query = "INSERT INTO " + DB_TABLE_NAME + " (" 
+//	    		+ DB_COL_NAME + ", " 
+//				+ DB_COL_TIME + ", "
+//				+ DB_COL_DESCRIPTION + ", " 
+//				+ DB_COL_PLACE + ", " 
+//				+ DB_COL_AMOUNT 
+//				+ ") VALUES (" 
+//				+ "`" + event.getName() + "`" + ", "
+//				+ "`" + Utils.df.format(event.getDate()) + "`" + ", "
+//				+ "`" + event.getDescription() + "`" + ", "
+//				+ "`" + event.getPlace() + "`" + ", "
+//				+ event.getAmount()
+//				+ ");";
+//	    Log.d("query:", query);
+//	    db.execSQL(	query);
 	}
 	
 	/*

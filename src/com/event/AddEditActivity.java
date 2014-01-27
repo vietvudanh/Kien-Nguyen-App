@@ -55,14 +55,17 @@ public class AddEditActivity extends Activity {
 		DatabaseHandler db = new DatabaseHandler(this);
 		
 		Log.d("Insert:", "Insert contact");
+		// change dd/MM/YYYY to MM/dd/YYYY format
 		String[] dates = input_date.getText().toString().split("[\\/]");
 		Log.d("Date number of split:", String.valueOf(dates.length)); 
 		String date = dates[1] + "/" +dates[0] + "/"  + dates[2] + ' ' + input_time.getText().toString();
+		Date date_in = new Date(date);
+		Log.d("Date:",date_in.toString());
 		
 		db.insert(new Event(
 							0,
 							input_name.getText().toString(),
-							new Date(date),
+							date_in,
 							input_description.getText().toString(),
 							input_place.getText().toString(),
 							Double.parseDouble(input_amount.getText().toString())

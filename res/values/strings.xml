@@ -11,7 +11,7 @@
     <string name="add_label_name">Name</string>
     <string name="add_hint_name">Event name</string>
     <string name="add_hint_date">DD/MM/YYYY</string>
-    <string name="add_hint_time">hh/mm</string>
+    <string name="add_hint_time">hh:mm</string>
     <string name="add_hint_description">Description</string>
     <string name="add_hint_place">Place</string>
     <string name="add_hint_amount">amount of money</string>
