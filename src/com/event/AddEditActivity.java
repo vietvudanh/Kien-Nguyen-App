@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 public class AddEditActivity extends Activity {
 
@@ -16,8 +18,8 @@ public class AddEditActivity extends Activity {
 	 * Attributes
 	 */
 	EditText input_name;
-	EditText input_date;
-	EditText input_time;
+	DatePicker input_date;
+	TimePicker input_time;
 	EditText input_description;
 	EditText input_place;
 	EditText input_amount;
@@ -30,8 +32,8 @@ public class AddEditActivity extends Activity {
 		
 		// init
 		input_name 			= (EditText)findViewById(R.id.add_input_name);
-		input_date 			= (EditText)findViewById(R.id.add_input_date);
-		input_time 			= (EditText)findViewById(R.id.add_input_time);
+		input_date 			= (DatePicker)findViewById(R.id.add_input_date);
+		input_time 			= (TimePicker)findViewById(R.id.add_input_time);
 		input_description 	= (EditText)findViewById(R.id.add_input_description);
 		input_place 		= (EditText)findViewById(R.id.add_input_place);
 		input_amount		= (EditText)findViewById(R.id.add_input_amount);
@@ -55,12 +57,15 @@ public class AddEditActivity extends Activity {
 		DatabaseHandler db = new DatabaseHandler(this);
 		
 		Log.d("Insert:", "Insert contact");
-		// change dd/MM/YYYY to MM/dd/YYYY format
-		String[] dates = input_date.getText().toString().split("[\\/]");
-		Log.d("Date number of split:", String.valueOf(dates.length)); 
-		String date = dates[1] + "/" +dates[0] + "/"  + dates[2] + ' ' + input_time.getText().toString();
+		String date = String.valueOf(input_date.getMonth() + 1) + "/" 
+						+ String.valueOf(input_date.getDayOfMonth()) + "/" 
+						+ String.valueOf(input_date.getYear()) + " " 
+						+ String.valueOf(input_time.getCurrentHour()) + ":"
+						+ String.valueOf(input_time.getCurrentMinute());
+	
+		Log.d("Date:",date);
 		Date date_in = new Date(date);
-		Log.d("Date:",date_in.toString());
+		
 		
 		db.insert(new Event(
 							0,

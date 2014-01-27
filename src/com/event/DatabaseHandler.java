@@ -118,4 +118,29 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		return list;
 	}
 
+	/*
+	 * getEvent
+	 * get an Event
+	 * @param:  id
+	 * @return: event
+	 */
+	public Event getEvent(int id){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		String[] queryString = {_ID, DB_COL_NAME, DB_COL_TIME, DB_COL_DESCRIPTION, DB_COL_PLACE, DB_COL_AMOUNT};
+		
+	    Cursor cursor = db.query(DB_TABLE_NAME, queryString, _ID + "= ", new String[]{String.valueOf(id)}, null, null, null, null);
+	    if (cursor != null)
+	        cursor.moveToFirst();
+		
+	    Event event = new Event(
+	    						cursor.getInt(1),
+	    						cursor.getString(2),
+	    						new Date(cursor.getInt(3)),
+	    						cursor.getString(4),
+	    						cursor.getString(5),
+	    						cursor.getDouble(2));
+	    return event;
+	}
+	
 }
