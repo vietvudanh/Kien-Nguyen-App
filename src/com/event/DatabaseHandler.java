@@ -104,12 +104,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	    if (cursor.moveToFirst()) {
 	        do {
 	            Event event = new Event(
-	            					cursor.getInt(1),
-	            					cursor.getString(2),
-	            					new Date(cursor.getInt(3)),
+	            					cursor.getInt(0),
+	            					cursor.getString(1),
+	            					new Date(cursor.getInt(2)),
+	            					cursor.getString(3),
 	            					cursor.getString(4),
-	            					cursor.getString(5),
-	            					cursor.getDouble(6)
+	            					cursor.getDouble(5)
 	            					);
 	            list.add(event);
 	        } while (cursor.moveToNext());

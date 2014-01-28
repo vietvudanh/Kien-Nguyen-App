@@ -57,15 +57,13 @@ public class AddEditActivity extends Activity {
 		DatabaseHandler db = new DatabaseHandler(this);
 		
 		Log.d("Insert:", "Insert contact");
-		String date = String.valueOf(input_date.getMonth() + 1) + "/" 
+		String date = String.valueOf(input_date.getMonth() + 1) + "/" // +1 cuz Jan == 0, Dec == 12
 						+ String.valueOf(input_date.getDayOfMonth()) + "/" 
 						+ String.valueOf(input_date.getYear()) + " " 
 						+ String.valueOf(input_time.getCurrentHour()) + ":"
 						+ String.valueOf(input_time.getCurrentMinute());
-	
-		Log.d("Date:",date);
-		Date date_in = new Date(date);
 		
+		Date date_in = new Date(date);
 		
 		db.insert(new Event(
 							0,

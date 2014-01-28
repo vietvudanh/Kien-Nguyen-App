@@ -24,7 +24,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080014;
+        public static final int action_settings=0x7f080010;
         public static final int add_button_save=0x7f08000c;
         public static final int add_input_amount=0x7f08000b;
         public static final int add_input_date=0x7f080004;
@@ -38,13 +38,9 @@ public final class R {
         public static final int add_label_name=0x7f080000;
         public static final int add_label_place=0x7f080008;
         public static final int add_label_time=0x7f080003;
-        public static final int list_label_all=0x7f08000d;
-        public static final int main_add=0x7f080012;
-        public static final int main_list=0x7f080013;
-        public static final int tableRow1=0x7f08000e;
-        public static final int tableRow2=0x7f08000f;
-        public static final int tableRow3=0x7f080010;
-        public static final int tableRow4=0x7f080011;
+        public static final int list_table=0x7f08000d;
+        public static final int main_add=0x7f08000e;
+        public static final int main_list=0x7f08000f;
     }
     public static final class layout {
         public static final int activity_add_edit=0x7f030000;

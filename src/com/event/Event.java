@@ -66,4 +66,13 @@ public class Event {
 		return this.amount;
 	}
 	
+	public String toString(){
+		String result = String.valueOf(this.id) + ";"
+						+ this.name + ";"
+						+ this.date.toString() + ";"
+						+ this.description + ";"
+						+ this.place + ";"
+						+ String.valueOf(this.amount) + "\n";
+		return result;
+	}
 }
