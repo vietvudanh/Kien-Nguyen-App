@@ -21,4 +21,9 @@ public interface Constants extends BaseColumns{
 	public static final String DB_COL_DESCRIPTION 	= "description";
 	public static final String DB_COL_PLACE 		= "place";
 	public static final String DB_COL_AMOUNT		= "amount";
+	
+	/*
+	 * List view columns
+	 */
+	public static final String[] LIST_COLUMS = 	{ "ID", "Name", "Date", "Description", "Place", "Amount"};
 }

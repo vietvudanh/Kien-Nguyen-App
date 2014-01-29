@@ -64,7 +64,7 @@ public class AddEditActivity extends Activity {
 						+ String.valueOf(input_time.getCurrentMinute());
 		
 		Date date_in = new Date(date);
-		
+		Log.d("Store as: ", date_in.toString());
 		db.insert(new Event(
 							0,
 							input_name.getText().toString(),

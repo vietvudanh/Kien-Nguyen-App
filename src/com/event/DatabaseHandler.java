@@ -28,11 +28,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		Log.d("ON CREATE", "CREATE");
+		Log.d("Database:", "CREATE");
 		String query = "CREATE TABLE " + DB_TABLE_NAME + "("
 				+ _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ DB_COL_NAME 			+ " TEXT " 		+ ", "
-				+ DB_COL_TIME 			+ " INT " 	+ ", " 
+				+ DB_COL_TIME 			+ " INT8 " 		+ ", " 
 				+ DB_COL_DESCRIPTION 	+ " TEXT "		+ ", "
 				+ DB_COL_PLACE 			+ " TEXT "		+ ", "
 				+ DB_COL_AMOUNT 		+ " DOUBLE "
@@ -55,35 +55,19 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	 * @return: 0/1
 	 */
 	public void insert(Event event){
-		Log.d("Insert:","insert called");
+		Log.d("Databse: ","INSERT");
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
 	    values.put(DB_COL_NAME, event.getName()); 
-	    values.put(DB_COL_TIME, Utils.df.format(event.getDate()));
+	    values.put(DB_COL_TIME, event.getDate().getTime());
 	    values.put(DB_COL_DESCRIPTION, event.getDescription());
 	    values.put(DB_COL_PLACE, event.getPlace());
 	    values.put(DB_COL_AMOUNT, event.getAmount());
-	    Log.d("Values:", values.toString());
-	 
+	   
 	    // Inserting Row
 	    db.insert(DB_TABLE_NAME, null, values);
-	    db.close(); // Closing database connection
-//	    String query = "INSERT INTO " + DB_TABLE_NAME + " (" 
-//	    		+ DB_COL_NAME + ", " 
-//				+ DB_COL_TIME + ", "
-//				+ DB_COL_DESCRIPTION + ", " 
-//				+ DB_COL_PLACE + ", " 
-//				+ DB_COL_AMOUNT 
-//				+ ") VALUES (" 
-//				+ "`" + event.getName() + "`" + ", "
-//				+ "`" + Utils.df.format(event.getDate()) + "`" + ", "
-//				+ "`" + event.getDescription() + "`" + ", "
-//				+ "`" + event.getPlace() + "`" + ", "
-//				+ event.getAmount()
-//				+ ");";
-//	    Log.d("query:", query);
-//	    db.execSQL(	query);
+	    db.close(); 
 	}
 	
 	/*
@@ -106,7 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	            Event event = new Event(
 	            					cursor.getInt(0),
 	            					cursor.getString(1),
-	            					new Date(cursor.getInt(2)),
+	            					new Date(cursor.getLong(2)),
 	            					cursor.getString(3),
 	            					cursor.getString(4),
 	            					cursor.getDouble(5)
@@ -114,7 +98,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	            list.add(event);
 	        } while (cursor.moveToNext());
 	    }
-		
+	
 		return list;
 	}
 
@@ -134,12 +118,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	        cursor.moveToFirst();
 		
 	    Event event = new Event(
-	    						cursor.getInt(1),
-	    						cursor.getString(2),
-	    						new Date(cursor.getInt(3)),
+	    						cursor.getInt(0),
+	    						cursor.getString(1),
+	    						new Date(cursor.getInt(2)),
+	    						cursor.getString(3),
 	    						cursor.getString(4),
-	    						cursor.getString(5),
-	    						cursor.getDouble(2));
+	    						cursor.getDouble(5));
 	    return event;
 	}
 	

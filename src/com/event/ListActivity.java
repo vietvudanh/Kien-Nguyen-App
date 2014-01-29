@@ -21,7 +21,6 @@ public class ListActivity extends Activity {
 		setContentView(R.layout.activity_list);
 		
 		//query from db:
-		Log.d("Databse:", "Query all db");
 		DatabaseHandler db = new DatabaseHandler(this);
 		ArrayList<Event> allEvents = db.getAllEvents();
 		db.close();
@@ -33,7 +32,6 @@ public class ListActivity extends Activity {
 		 */
 		Log.d("Tablelayout:", "add to table");
 		for(Event event: allEvents){
-	        Log.d("Rows",event.toString());
 	        TableRow tableRow = new TableRow(getApplicationContext());
 	        tableRow.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 	        
@@ -44,8 +42,7 @@ public class ListActivity extends Activity {
 	            TextView columsView = new TextView(getApplicationContext());
 	            columsView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 	            columsView.setTextColor(Color.parseColor("#000000"));
-	            columsView.setText(String.format("%7s", col));                                
-	            Log.d("columns", String.format("%7s", col));
+	            columsView.setText(String.format("%7s", col));
 	            tableRow.addView(columsView);                
 	            }
 	         table.addView(tableRow);
