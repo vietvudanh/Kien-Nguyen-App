@@ -9,6 +9,10 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,7 +32,7 @@ public class ListActivity extends Activity {
 		TableLayout table = (TableLayout)findViewById(R.id.list_table);
 		
 		/*
-		 * add each event in all event to table layout
+		 * add each event in all events to table layout
 		 */
 		Log.d("Tablelayout:", "add to table");
 		for(Event event: allEvents){
@@ -46,8 +50,38 @@ public class ListActivity extends Activity {
 	            tableRow.addView(columsView);                
 	            }
 	         table.addView(tableRow);
-
+	         
 	    }
+//		/*
+//		 * Scroll viewable
+//		 */
+//		ScrollView parentScrollView = (ScrollView)findViewById(R.id.list_scrollView);
+//		HorizontalScrollView childScrollView = (HorizontalScrollView)findViewById(R.id.list_horizontalScrollView);
+//		
+//		parentScrollView.setOnTouchListener(new View.OnTouchListener() {
+//
+//	        @Override
+//	        public boolean onTouch(View v, MotionEvent event) {
+//	        Log.v("TOUCH", "PARENT TOUCH");
+//
+//	        findViewById(R.id.list_horizontalScrollView).getParent()
+//	                .requestDisallowInterceptTouchEvent(false);
+//	        return false;
+//	    }
+//	        
+//		});
+//	
+//		childScrollView.setOnTouchListener(new View.OnTouchListener() {
+//	
+//		        @Override
+//		        public boolean onTouch(View v, MotionEvent event) {
+//		        Log.v("Touch", "CHILD TOUCH");
+//	
+//		        // Disallow the touch request for parent scroll on touch of  child view
+//		        v.getParent().requestDisallowInterceptTouchEvent(true);
+//		        return false;
+//		    }
+//		});
 		
 	}
 
