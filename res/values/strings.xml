@@ -20,5 +20,6 @@
     <string name="add_button_save">Save</string>
     <string name="list_label_all">All event</string>
     <string name="add_hint_amount">0.0</string>
+    <string name="add_button_delete">Delete</string>
 
 </resources>

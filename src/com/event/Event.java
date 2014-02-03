@@ -5,6 +5,7 @@
 package com.event;
 
 import java.util.Date;
+import com.event.Utils;
 
 public class Event {
 
@@ -69,7 +70,7 @@ public class Event {
 	public String toString(){
 		String result = String.valueOf(this.id) + ";"
 						+ this.name + ";"
-						+ this.date.toString() + ";"
+						+ Utils.df.format(this.date) + ";"
 						+ this.description + ";"
 						+ this.place + ";"
 						+ String.valueOf(this.amount) + "\n";

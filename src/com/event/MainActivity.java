@@ -30,7 +30,8 @@ public class MainActivity extends Activity {
      */
     public void mainAddEdit(View view){
     	Intent intent = new Intent(this, AddEditActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, MAIN_ADD);
+        String message = MAIN_ADD;
+    	intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
     

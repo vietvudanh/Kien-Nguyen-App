@@ -55,7 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	 * @return: 0/1
 	 */
 	public void insert(Event event){
-		Log.d("Databse: ","INSERT");
+		Log.d("DB.Insert: ","INSERT");
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
@@ -76,6 +76,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	 * @return: all events
 	 */
 	public ArrayList<Event> getAllEvents(){
+		
+		Log.d("DB.getAll", "get all");
 		ArrayList<Event> list = new ArrayList<Event>();
 		
 		// Select All Query
@@ -109,22 +111,67 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	 * @return: event
 	 */
 	public Event getEvent(int id){
+		
+		Log.d("DB.getEvent", "get");
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		String[] queryString = {_ID, DB_COL_NAME, DB_COL_TIME, DB_COL_DESCRIPTION, DB_COL_PLACE, DB_COL_AMOUNT};
 		
-	    Cursor cursor = db.query(DB_TABLE_NAME, queryString, _ID + "= ", new String[]{String.valueOf(id)}, null, null, null, null);
+		String[] a = new String[]{String.valueOf(id)};
+		
+	    Cursor cursor = db.query(DB_TABLE_NAME, queryString, _ID + " =?", a, null, null, null, null);
 	    if (cursor != null)
 	        cursor.moveToFirst();
 		
 	    Event event = new Event(
 	    						cursor.getInt(0),
 	    						cursor.getString(1),
-	    						new Date(cursor.getInt(2)),
+	    						new Date(cursor.getLong(2)),
 	    						cursor.getString(3),
 	    						cursor.getString(4),
 	    						cursor.getDouble(5));
+	    
 	    return event;
+	}
+	
+	/*
+	 * updateEvent
+	 * update an event row in DB
+	 * @param: event to be updated
+	 * @return: state: 0=failed, 1=success
+	 */
+	public int updateEvent(Event event){
+				
+		Log.d("DB.Update", "Update" + event.toString());
+	    SQLiteDatabase db = this.getWritableDatabase();
+	 
+	    ContentValues values = new ContentValues();
+	    values.put(DB_COL_NAME, event.getName()); 
+	    values.put(DB_COL_TIME, event.getDate().getTime());
+	    values.put(DB_COL_DESCRIPTION, event.getDescription());
+	    values.put(DB_COL_PLACE, event.getPlace());
+	    values.put(DB_COL_AMOUNT, event.getAmount());
+	 
+	    // updating row
+	    return db.update(DB_TABLE_NAME, values, _ID + " = ?",
+	            new String[] { String.valueOf(event.getID()) });
+	
+	}
+	
+	/*
+	 * deleteEvent
+	 * delete an event row in DB
+	 * @param: Event to be delete
+	 */
+	public void deleteEvent(int _id){
+		
+		Log.d("DB.Delete", "Delete");
+		SQLiteDatabase db = this.getWritableDatabase();
+	    db.delete(DB_TABLE_NAME, _ID + " = ?",
+	            new String[] { String.valueOf(_id) });
+	    
+	    db.close();
+		
 	}
 	
 }

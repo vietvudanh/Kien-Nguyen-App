@@ -8,7 +8,8 @@ public interface Constants extends BaseColumns{
 	 * Activity
 	 */
 	public static final String EXTRA_MESSAGE 	= "com.example.myfirstapp.MESSAGE";
-	public static final String MAIN_ADD 		= "ADD";
+	public static final String MAIN_ADD 		= "ADD";			// simply add(called from main)
+	public static final String LIST_EDIT 		= "EDIT";			// edit event id at EDIT:id, need additional info here
 	
 	/*
 	 * Database

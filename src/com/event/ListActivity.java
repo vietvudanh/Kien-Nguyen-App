@@ -2,21 +2,24 @@ package com.event;
 
 import java.util.ArrayList;
 
-import android.R.color;
+import static com.event.Constants.EXTRA_MESSAGE;
+import static com.event.Constants.LIST_EDIT;
+
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
+import android.view.View.OnClickListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+@SuppressLint("InlinedApi")
 public class ListActivity extends Activity {
 
 	@Override
@@ -47,42 +50,28 @@ public class ListActivity extends Activity {
 	            columsView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 	            columsView.setTextColor(Color.parseColor("#000000"));
 	            columsView.setText(String.format("%7s", col));
-	            tableRow.addView(columsView);                
-	            }
-	         table.addView(tableRow);
-	         
+	            tableRow.addView(columsView);  
+
+	        }
+	        table.addView(tableRow);
+	        
+	        tableRow.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					TableRow row = (TableRow)v;
+					TextView idColumn = (TextView)row.getChildAt(0);
+					
+					Intent intent = new Intent(v.getContext(), AddEditActivity.class);
+			        String message = LIST_EDIT;
+			        int id = Integer.parseInt(idColumn.getText().toString().trim());
+			    	intent.putExtra(EXTRA_MESSAGE, message);
+			    	intent.putExtra("ID", id);
+			        startActivity(intent);
+				}
+			});
+               
 	    }
-//		/*
-//		 * Scroll viewable
-//		 */
-//		ScrollView parentScrollView = (ScrollView)findViewById(R.id.list_scrollView);
-//		HorizontalScrollView childScrollView = (HorizontalScrollView)findViewById(R.id.list_horizontalScrollView);
-//		
-//		parentScrollView.setOnTouchListener(new View.OnTouchListener() {
-//
-//	        @Override
-//	        public boolean onTouch(View v, MotionEvent event) {
-//	        Log.v("TOUCH", "PARENT TOUCH");
-//
-//	        findViewById(R.id.list_horizontalScrollView).getParent()
-//	                .requestDisallowInterceptTouchEvent(false);
-//	        return false;
-//	    }
-//	        
-//		});
-//	
-//		childScrollView.setOnTouchListener(new View.OnTouchListener() {
-//	
-//		        @Override
-//		        public boolean onTouch(View v, MotionEvent event) {
-//		        Log.v("Touch", "CHILD TOUCH");
-//	
-//		        // Disallow the touch request for parent scroll on touch of  child view
-//		        v.getParent().requestDisallowInterceptTouchEvent(true);
-//		        return false;
-//		    }
-//		});
-		
 	}
 
 	@Override

@@ -2,6 +2,10 @@ package com.event;
 
 import java.util.Date;
 
+import static com.event.Constants.MAIN_ADD;
+import static com.event.Constants.LIST_EDIT;
+import static com.event.Constants.EXTRA_MESSAGE;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.TextView;
 
 public class AddEditActivity extends Activity {
 
@@ -24,7 +29,9 @@ public class AddEditActivity extends Activity {
 	EditText input_place;
 	EditText input_amount;
 	Button button_save;
+	Button button_delete;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +45,31 @@ public class AddEditActivity extends Activity {
 		input_place 		= (EditText)findViewById(R.id.add_input_place);
 		input_amount		= (EditText)findViewById(R.id.add_input_amount);
 		button_save			= (Button)findViewById(R.id.add_button_save);
+		button_delete		= (Button)findViewById(R.id.add_button_delete);
+		button_delete.setVisibility(View.GONE);
+		
+		/*
+		 * check state to decide: add or edit
+		 */
+		Bundle extras = getIntent().getExtras();
+		// edit
+		if( extras.getString(EXTRA_MESSAGE).equals(LIST_EDIT) ){
+			int _id = extras.getInt("ID");
+			
+			DatabaseHandler dbHandler = new DatabaseHandler(this);
+			Event event =  dbHandler.getEvent(_id);
+			
+			input_name.setText(event.getName(), TextView.BufferType.EDITABLE);
+			input_date.init(event.getDate().getYear()+1900, event.getDate().getMonth(), event.getDate().getDate(), null);
+			input_time.setCurrentHour(event.getDate().getHours());
+			input_time.setCurrentMinute(event.getDate().getMinutes());
+			input_description.setText(event.getDescription(), TextView.BufferType.EDITABLE);
+			input_place.setText(event.getPlace(), TextView.BufferType.EDITABLE);
+			input_amount.setText(String.valueOf(event.getAmount()), TextView.BufferType.EDITABLE);
+			
+			button_delete.setVisibility(View.VISIBLE);
+			
+		}
 	}
 
 	@Override
@@ -52,28 +84,74 @@ public class AddEditActivity extends Activity {
 	 * @param:
 	 * @return:
 	 */
+	@SuppressWarnings("unused")
 	public void insertDB(View view){
-		//db
-		DatabaseHandler db = new DatabaseHandler(this);
 		
-		Log.d("Insert:", "Insert contact");
-		String date = String.valueOf(input_date.getMonth() + 1) + "/" // +1 cuz Jan == 0, Dec == 12
-						+ String.valueOf(input_date.getDayOfMonth()) + "/" 
-						+ String.valueOf(input_date.getYear()) + " " 
-						+ String.valueOf(input_time.getCurrentHour()) + ":"
-						+ String.valueOf(input_time.getCurrentMinute());
+		/*
+		 * check state to decide: add or edit
+		 */
+		Bundle extras = getIntent().getExtras();
+		//  add
+		if( extras.getString(EXTRA_MESSAGE).equals(MAIN_ADD) ){
+			
+			//db
+			DatabaseHandler db = new DatabaseHandler(this);
+			
+			@SuppressWarnings("deprecation")
+			//note that Date use year: y from 1900, 0-11 for month, 1-31 for date, 0-24 for hour, 0-59 for min, 0-59 for sec
+			Date date_in = new Date(input_date.getYear()-1900, input_date.getMonth(), input_date.getDayOfMonth(), input_time.getCurrentHour(), input_time.getCurrentMinute());
+			Log.d("Add: ", date_in.toString());
+			db.insert(new Event(
+								0,
+								input_name.getText().toString(),
+								date_in,
+								input_description.getText().toString(),
+								input_place.getText().toString(),
+								Double.parseDouble(input_amount.getText().toString())
+								));
+			
+		} else 
+		// edit
+		if(extras.getString(EXTRA_MESSAGE).equals(LIST_EDIT)){
+			//db			
+			int _id = extras.getInt("ID");
+			
+			DatabaseHandler db = new DatabaseHandler(this);
+			@SuppressWarnings("deprecation")
+			Date date_in = new Date(input_date.getYear(), input_date.getMonth() + 1, input_date.getDayOfMonth(), input_time.getCurrentHour(), input_time.getCurrentMinute());
+			Log.d("Edit: ", date_in.toString());
+			db.updateEvent(new Event(
+								_id,
+								input_name.getText().toString(),
+								date_in,
+								input_description.getText().toString(),
+								input_place.getText().toString(),
+								Double.parseDouble(input_amount.getText().toString())
+								));
+		}
+		else{
+			return;
+		}
 		
-		Date date_in = new Date(date);
-		Log.d("Store as: ", date_in.toString());
-		db.insert(new Event(
-							0,
-							input_name.getText().toString(),
-							date_in,
-							input_description.getText().toString(),
-							input_place.getText().toString(),
-							Double.parseDouble(input_amount.getText().toString())
-							));
-		
+		onBackPressed();
 	}
+	
+	@SuppressWarnings("unused")
+	public void deleteEvent(View view){
+		Bundle extras = getIntent().getExtras();
+		
+		if(extras.getString(EXTRA_MESSAGE).equals(LIST_EDIT)){
+			//db			
+			int _id = extras.getInt("ID");
+			DatabaseHandler db = new DatabaseHandler(this);
+			
+			db.deleteEvent(_id);
+			db.close();
+			
+			button_delete.setVisibility(View.GONE);
+			onBackPressed();
+		}
+	}
+	
 
 }
