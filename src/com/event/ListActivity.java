@@ -68,10 +68,11 @@ public class ListActivity extends Activity {
 			    	intent.putExtra(EXTRA_MESSAGE, message);
 			    	intent.putExtra("ID", id);
 			        startActivity(intent);
+			        finish();
 				}
 			});
-               
 	    }
+	
 	}
 
 	@Override
@@ -80,5 +81,4 @@ public class ListActivity extends Activity {
 		getMenuInflater().inflate(R.menu.list, menu);
 		return true;
 	}
-
 }

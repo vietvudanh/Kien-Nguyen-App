@@ -84,7 +84,6 @@ public class AddEditActivity extends Activity {
 	 * @param:
 	 * @return:
 	 */
-	@SuppressWarnings("unused")
 	public void insertDB(View view){
 		
 		/*
@@ -136,7 +135,6 @@ public class AddEditActivity extends Activity {
 		onBackPressed();
 	}
 	
-	@SuppressWarnings("unused")
 	public void deleteEvent(View view){
 		Bundle extras = getIntent().getExtras();
 		
