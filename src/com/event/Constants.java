@@ -27,4 +27,5 @@ public interface Constants extends BaseColumns{
 	 * List view columns
 	 */
 	public static final String[] LIST_COLUMS = 	{ "ID", "Name", "Date", "Description", "Place", "Amount"};
+	
 }

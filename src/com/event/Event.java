@@ -4,9 +4,6 @@
 
 package com.event;
 
-import java.util.Date;
-import com.event.Utils;
-
 public class Event {
 
 	/*
@@ -14,7 +11,7 @@ public class Event {
 	 */
 	private int 	id;
 	private String 	name;
-	private Date 	date;
+	private MyDate 	date;
 	private String 	description;
 	private String 	place;
 	private double 	amount;
@@ -31,7 +28,7 @@ public class Event {
 	
 	public Event(	int id,
 					String name, 
-					Date date,
+					MyDate date,
 					String description,
 					String place,
 					double amount){
@@ -51,7 +48,7 @@ public class Event {
 		return this.name;
 	}
 	
-	public Date getDate(){
+	public MyDate getDate(){
 		return this.date;
 	}
 	
@@ -70,10 +67,10 @@ public class Event {
 	public String toString(){
 		String result = String.valueOf(this.id) + ";"
 						+ this.name + ";"
-						+ Utils.df.format(this.date) + ";"
+						+ this.date.toString() + ";"
 						+ this.description + ";"
 						+ this.place + ";"
-						+ String.valueOf(this.amount) + "\n";
+						+ String.valueOf(this.amount);
 		return result;
 	}
 }

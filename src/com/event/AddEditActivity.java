@@ -1,7 +1,5 @@
 package com.event;
 
-import java.util.Date;
-
 import static com.event.Constants.MAIN_ADD;
 import static com.event.Constants.LIST_EDIT;
 import static com.event.Constants.EXTRA_MESSAGE;
@@ -31,7 +29,6 @@ public class AddEditActivity extends Activity {
 	Button button_save;
 	Button button_delete;
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,9 +57,9 @@ public class AddEditActivity extends Activity {
 			Event event =  dbHandler.getEvent(_id);
 			
 			input_name.setText(event.getName(), TextView.BufferType.EDITABLE);
-			input_date.init(event.getDate().getYear()+1900, event.getDate().getMonth(), event.getDate().getDate(), null);
-			input_time.setCurrentHour(event.getDate().getHours());
-			input_time.setCurrentMinute(event.getDate().getMinutes());
+			input_date.init(event.getDate().year, event.getDate().month, event.getDate().date, null);
+			input_time.setCurrentHour(event.getDate().hour);
+			input_time.setCurrentMinute(event.getDate().minute);
 			input_description.setText(event.getDescription(), TextView.BufferType.EDITABLE);
 			input_place.setText(event.getPlace(), TextView.BufferType.EDITABLE);
 			input_amount.setText(String.valueOf(event.getAmount()), TextView.BufferType.EDITABLE);
@@ -96,14 +93,15 @@ public class AddEditActivity extends Activity {
 			//db
 			DatabaseHandler db = new DatabaseHandler(this);
 			
-			@SuppressWarnings("deprecation")
-			//note that Date use year: y from 1900, 0-11 for month, 1-31 for date, 0-24 for hour, 0-59 for min, 0-59 for sec
-			Date date_in = new Date(input_date.getYear()-1900, input_date.getMonth(), input_date.getDayOfMonth(), input_time.getCurrentHour(), input_time.getCurrentMinute());
-			Log.d("Add: ", date_in.toString());
+			//
+			MyDate date = new MyDate(input_date.getYear(), input_date.getMonth(), input_date.getDayOfMonth(), input_time.getCurrentHour(), input_time.getCurrentMinute(), 0);
+			
+			Log.d("Month/hour: ", input_date.getMonth()+"/" + input_time.getCurrentHour());
+			Log.d("Add: ", date.toString());
 			db.insert(new Event(
 								0,
 								input_name.getText().toString(),
-								date_in,
+								date,
 								input_description.getText().toString(),
 								input_place.getText().toString(),
 								Double.parseDouble(input_amount.getText().toString())
@@ -116,23 +114,25 @@ public class AddEditActivity extends Activity {
 			int _id = extras.getInt("ID");
 			
 			DatabaseHandler db = new DatabaseHandler(this);
-			@SuppressWarnings("deprecation")
-			Date date_in = new Date(input_date.getYear(), input_date.getMonth() + 1, input_date.getDayOfMonth(), input_time.getCurrentHour(), input_time.getCurrentMinute());
-			Log.d("Edit: ", date_in.toString());
+			MyDate date = new MyDate(input_date.getYear(), input_date.getMonth(), input_date.getDayOfMonth(), input_time.getCurrentHour(), input_time.getCurrentMinute(), 0);
+
+			Log.d("Add: ", date.toString());
 			db.updateEvent(new Event(
 								_id,
 								input_name.getText().toString(),
-								date_in,
+								date,
 								input_description.getText().toString(),
 								input_place.getText().toString(),
 								Double.parseDouble(input_amount.getText().toString())
 								));
+			
+			// back after edit
+			onBackPressed();
 		}
 		else{
 			return;
 		}
-		
-		onBackPressed();
+	
 	}
 	
 	public void deleteEvent(View view){

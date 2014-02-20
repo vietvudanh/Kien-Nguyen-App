@@ -11,6 +11,7 @@ import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -19,7 +20,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-@SuppressLint("InlinedApi")
+@SuppressLint({ "InlinedApi", "NewApi" })
 public class ListActivity extends Activity {
 
 	@Override
@@ -38,18 +39,48 @@ public class ListActivity extends Activity {
 		 * add each event in all events to table layout
 		 */
 		Log.d("Tablelayout:", "add to table");
+		
+		// add heading row
+		TableRow tableRowh = new TableRow(getApplicationContext());
+        tableRowh.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        String[] header = {"ID", "Name", "Date", "Description", "Place", "Money"};
+        for(int i = 0; i < header.length; i++){
+        	TextView columsView = new TextView(getApplicationContext());
+        	columsView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+        	
+        	// get TextView attribute from drawable/cell_header
+            columsView.setBackground(getResources().getDrawable(R.drawable.cell_header) );
+            columsView.setTypeface(null, Typeface.BOLD);
+            columsView.setText(String.format("%7s", header[i]));
+            columsView.setTextColor(Color.parseColor("#000000"));
+            //columsView.setWidth(LIST_WIDTH[i]);
+            //columsView.setHeight(LIST_HEIGHT);
+            //columsView.setGravity(Gravity.TOP);
+            
+        	tableRowh.addView(columsView); 
+        }
+        table.addView(tableRowh);
+        
 		for(Event event: allEvents){
 	        TableRow tableRow = new TableRow(getApplicationContext());
-	        tableRow.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+	        tableRow.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	        
 	        String[] columns = event.toString().split(";");
 	        
+	        // add data rows
 	        for (int j = 0; j < columns.length; j++) {             
 	            final String col = columns[j];                                 
 	            TextView columsView = new TextView(getApplicationContext());
 	            columsView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-	            columsView.setTextColor(Color.parseColor("#000000"));
+	            
+	            // get TextView attribute from drawable/cell
+	            columsView.setBackground(getResources().getDrawable(R.drawable.cell) );
 	            columsView.setText(String.format("%7s", col));
+	            columsView.setLines(1);
+	            //columsView.setWidth(LIST_WIDTH[j]);
+	            //columsView.setHeight(LIST_HEIGHT);
+	            //columsView.setGravity(Gravity.TOP);
+	            
 	            tableRow.addView(columsView);  
 
 	        }

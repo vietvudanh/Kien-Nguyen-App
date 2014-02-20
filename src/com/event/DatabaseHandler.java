@@ -1,7 +1,6 @@
 package com.event;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -92,7 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	            Event event = new Event(
 	            					cursor.getInt(0),
 	            					cursor.getString(1),
-	            					new Date(cursor.getLong(2)),
+	            					new MyDate(cursor.getLong(2)),
 	            					cursor.getString(3),
 	            					cursor.getString(4),
 	            					cursor.getDouble(5)
@@ -126,7 +125,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	    Event event = new Event(
 	    						cursor.getInt(0),
 	    						cursor.getString(1),
-	    						new Date(cursor.getLong(2)),
+	    						new MyDate(cursor.getLong(2)),
 	    						cursor.getString(3),
 	    						cursor.getString(4),
 	    						cursor.getDouble(5));
