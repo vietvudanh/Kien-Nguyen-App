@@ -21,5 +21,6 @@
     <string name="list_label_all">All event</string>
     <string name="add_hint_amount">0.0</string>
     <string name="add_button_delete">Delete</string>
+    <string name="main_dropDB">Clean data</string>
 
 </resources>

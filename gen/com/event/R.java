@@ -26,7 +26,7 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f080014;
+        public static final int action_settings=0x7f080015;
         public static final int add_button_delete=0x7f08000d;
         public static final int add_button_save=0x7f08000e;
         public static final int add_input_amount=0x7f08000c;
@@ -46,6 +46,7 @@ public final class R {
         public static final int list_scrollView=0x7f08000f;
         public static final int list_table=0x7f080011;
         public static final int main_add=0x7f080012;
+        public static final int main_dropDB=0x7f080014;
         public static final int main_list=0x7f080013;
     }
     public static final class layout {
@@ -76,6 +77,7 @@ public final class R {
         public static final int hello_world=0x7f050002;
         public static final int list_label_all=0x7f050011;
         public static final int main_add=0x7f050003;
+        public static final int main_dropDB=0x7f050014;
         public static final int main_list=0x7f050004;
         public static final int title_activity_add_edit=0x7f050005;
         public static final int title_activity_list=0x7f050006;

@@ -66,6 +66,11 @@ public class AddEditActivity extends Activity {
 			
 			button_delete.setVisibility(View.VISIBLE);
 			
+			setTitle("Edit event");
+			
+		}
+		else{
+			setTitle("Add event");
 		}
 	}
 

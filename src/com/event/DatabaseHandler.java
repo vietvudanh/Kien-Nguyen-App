@@ -173,4 +173,20 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		
 	}
 	
+	/*
+	 * deleteDB
+	 * Delete whole db data
+	 */
+	public void dropDB(){
+		Log.d("DB.Drop", "Drop");
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		db.delete(DB_TABLE_NAME, null, null);
+		
+		// reset auto increment counter
+		db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + DB_TABLE_NAME + "'");
+	    
+	    db.close();
+	}
+	
 }

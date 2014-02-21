@@ -53,14 +53,11 @@ public class ListActivity extends Activity {
             columsView.setTypeface(null, Typeface.BOLD);
             columsView.setText(String.format("%7s", header[i]));
             columsView.setTextColor(Color.parseColor("#000000"));
-            //columsView.setWidth(LIST_WIDTH[i]);
-            //columsView.setHeight(LIST_HEIGHT);
-            //columsView.setGravity(Gravity.TOP);
-            
         	tableRowh.addView(columsView); 
         }
         table.addView(tableRowh);
         
+        //add data row
 		for(Event event: allEvents){
 	        TableRow tableRow = new TableRow(getApplicationContext());
 	        tableRow.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -77,9 +74,6 @@ public class ListActivity extends Activity {
 	            columsView.setBackground(getResources().getDrawable(R.drawable.cell) );
 	            columsView.setText(String.format("%7s", col));
 	            columsView.setLines(1);
-	            //columsView.setWidth(LIST_WIDTH[j]);
-	            //columsView.setHeight(LIST_HEIGHT);
-	            //columsView.setGravity(Gravity.TOP);
 	            
 	            tableRow.addView(columsView);  
 
@@ -103,7 +97,8 @@ public class ListActivity extends Activity {
 				}
 			});
 	    }
-	
+		
+		setTitle("All events");
 	}
 
 	@Override
